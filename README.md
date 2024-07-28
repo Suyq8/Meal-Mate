@@ -23,8 +23,8 @@ Mealmate is a web application built to facilitate online ordering for restaurant
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/suyq8/mealmate.git
-    cd mealmate/frontend
+    git clone https://github.com/Suyq8/Meal-Mate.git
+    cd Meal-Mate/frontend
     ```
 
 2. Install dependencies:
@@ -41,7 +41,7 @@ Mealmate is a web application built to facilitate online ordering for restaurant
 
 1. Navigate to the backend directory:
     ```bash
-    cd mealmate/backend
+    cd Meal-Mate/backend
     ```
 
 2. Configure the `application.properties` file with your MySQL database credentials:
