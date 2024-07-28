@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: ${mealmate.datasource.driver-class-name}
+    url: jdbc:mysql://${mealmate.datasource.host}:${mealmate.datasource.port}/${mealmate.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${mealmate.datasource.username}
+    password: ${mealmate.datasource.password}
+  data:
+    redis:
+      host: ${mealmate.redis.host}
+      port: ${mealmate.redis.port}
+      password: ${mealmate.redis.password}
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.mealmate.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      mealmate:
+        mapper: debug
+        service: info
+        controller: info
+
+mealmate:
+  jwt:
+    admin-secret-key: AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSUGPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3Pbv7kOdJ
+    admin-ttl: 7200000
+    admin-token-name: token
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.mealmate.controller
+
+knife4j:
+  enable: true
+  setting:
+    language: en

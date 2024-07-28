@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mealmate.mapper.MealMapper">
+    <update id="update" parameterType="com.mealmate.entity.Meal">
+        update meal
+        <set>
+            <if test="name != null  and name != ''"> name = #{name}, </if>
+            <if test="categoryId != null"> category_id = #{categoryId}, </if>
+            <if test="price != null"> price = #{price}, </if>
+            <if test="status != null"> status = #{status}, </if>
+            <if test="description != null"> description = #{description}, </if>
+            <if test="image != null"> image = #{image}, </if>
+            <if test="updateTime != null"> update_time = #{updateTime}, </if>
+            <if test="updateUser != null"> update_user = #{updateUser} </if>
+        </set>
+        where id = #{id}
+    </update>
+    <insert id="insert" parameterType="com.mealmate.entity.Meal" useGeneratedKeys="true" keyProperty="id">
+        insert into meal (name, category_id, price, image, description, status, create_time, update_time, create_user, update_user)
+        VALUES (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
+    </insert>
+    <select id="pageQuery" resultType="com.mealmate.vo.MealVO">
+        select m.*, c.name as category_name from meal m left join category c on m.category_id = c.id
+        <where>
+            <if test="name != null and name != ''"> m.name like concat('%',#{name},'%') </if>
+            <if test="status != null"> and m.status = #{status} </if>
+            <if test="categoryId != null"> and m.category_id = #{categoryId} </if>
+        </where> order by m.create_time desc
+    </select>
+    <delete id="deleteMulti">
+        DELETE FROM meal WHERE id in
+        <foreach collection="mealIds" item="mealId" open="(" separator="," close=")">
+            #{mealId}
+        </foreach>
+    </delete>
+    <select id="getByMeal" parameterType="com.mealmate.entity.Meal" resultType="com.mealmate.entity.Meal">
+        select * from meal
+        <where>
+            <if test="name != null"> and name like concat('%',#{name},'%') </if>
+            <if test="categoryId != null"> and category_id = #{categoryId} </if>
+            <if test="status != null"> and status = #{status} </if>
+        </where>
+    </select>
+    <select id="getDishItemById" resultType="com.mealmate.vo.DishItemVO">
+        select sd.name, sd.quantity, d.image, d.description
+        from meal_dish sd left join dish d on sd.dish_id = d.id
+        where sd.meal_id = #{mealId}
+    </select>
+</mapper>

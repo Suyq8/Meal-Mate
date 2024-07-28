@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mealmate.mapper.AddressMapper">
+    <select id="getAllAddress" parameterType="com.mealmate.entity.Address" resultType="com.mealmate.entity.Address">
+        select * from address
+        <where>
+            <if test="userId != null"> user_id = #{userId} </if>
+            <if test="phone != null"> and phone = #{phone} </if>
+            <if test="isDefault != null"> and is_default = #{isDefault} </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.mealmate.entity.Address">
+        update address
+        <set>
+            <if test="name != null"> name = #{name}, </if>
+            <if test="phone != null"> phone = #{phone}, </if>
+            <if test="detail != null"> detail = #{detail}, </if>
+            <if test="label != null"> label = #{label}, </if>
+            <if test="isDefault != null"> is_default = #{isDefault} </if>
+            <if test="provinceName != null"> province_name = #{provinceName}, </if>
+            <if test="cityName != null"> city_name = #{cityName}, </if>
+            <if test="districtName != null"> district_name = #{districtName} </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.mealmate.entity.Address">
+        insert into address(user_id, name, phone, province_name, city_name, district_name, detail, label, is_default)
+        values(#{userId}, #{name}, #{phone}, #{provinceName}, #{cityName}, #{districtName}, #{detail}, #{label}, #{isDefault})
+    </insert>
+</mapper>

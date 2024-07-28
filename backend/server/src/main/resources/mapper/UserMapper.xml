@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mealmate.mapper.UserMapper">
+    <select id="getUserCountList">
+        SELECT total_user FROM
+        (WITH RECURSIVE date_series AS (
+            SELECT #{startDate} AS date
+            UNION ALL
+            SELECT DATE_ADD(date, INTERVAL 1 DAY)
+            FROM date_series
+            WHERE date &lt; #{endDate}
+        )
+        SELECT
+            ds.date AS time, (SELECT COUNT(*) FROM user WHERE DATE(create_time) &lt;= ds.date) AS total_user
+        FROM
+            date_series ds
+        ORDER BY
+            ds.date) tmp
+    </select>
+</mapper>

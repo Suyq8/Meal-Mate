@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .custom-scrollbar {
+    @apply scrollbar-thumb-[#e0e0e0] scrollbar-track-[#1b2537] scrollbar-thin
+  }
+
+  .date-range-picker [data-slot="segment"] {
+    @apply text-[#e0e0e0]
+  }
+
+  .date-range-picker [data-slot="separator"] {
+    @apply text-[#e0e0e0]
+  }
+
+  .date-range-picker [data-slot="segment"][data-placeholder=true][data-editable=true] {
+    @apply text-[#e0e0e0]
+  }
+
+  .date-range-picker [data-slot="segment"][data-editable=true] {
+    @apply text-[#e0e0e0]
+  }
+
+  .date-range-picker [data-slot="selector-button"] {
+    @apply ml-[-12px] text-[#e0e0e0]
+  }
+
+  .button {
+    @apply bg-[#66a2df] hover:bg-[#5791cb] text-[#e0e0e0]
+  }
+
+  .bg {
+    @apply bg-[#1b2537]
+  }
+}

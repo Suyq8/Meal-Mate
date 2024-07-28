@@ -1,0 +1,21 @@
+mealmate:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: meal_mate
+    username: yourusername
+    password: yourpassword
+  gcp:
+    project-id: meal-mate-427115
+    bucket-name: meal-mate-image
+    path: yourgoolecloudauth.json
+  redis:
+    host: localhost
+    port: 6379
+    password: yourpassword
+  stripe:
+    api-key: yourstripeapikey
+    signing-secret: yourstripesigningsecret
+  security:
+    secret-key: 3409ca90fbd8fecd3371a0ce175d6f1e

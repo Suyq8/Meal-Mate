@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mealmate.mapper.MealDishMapper">
+    <select id="getMealIdsByDishIds" resultType="java.lang.Long">
+        SELECT DISTINCT(meal_id) FROM meal_dish WHERE dish_id in
+        <foreach collection="dishIds" item="dishId" open="(" separator="," close=")">
+            #{dishId}
+        </foreach>
+    </select>
+
+    <insert id="insertMulti" parameterType="list">
+        insert into meal_dish (meal_id, dish_id, name, price, quantity) values
+        <foreach collection="mealDishes" item="mealDish" separator=",">
+            (#{mealDish.mealId}, #{mealDish.dishId}, #{mealDish.name}, #{mealDish.price}, #{mealDish.quantity})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByMealIds">
+        DELETE FROM meal_dish WHERE meal_id in
+        <foreach collection="mealIds" item="mealId" open="(" separator="," close=")">
+            #{mealId}
+        </foreach>
+    </delete>
+</mapper>
