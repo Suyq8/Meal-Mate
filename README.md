@@ -44,7 +44,7 @@ Mealmate is a web application built to facilitate online ordering for restaurant
     cd Meal-Mate/backend
     ```
 
-2. Configure the `application.properties` file with your MySQL database credentials:
+2. Configure the `server/src/main/resources/application.yml` file with your MySQL database credentials:
     ```properties
     spring.datasource.url=jdbc:mysql://localhost:3306/yourdbname
     spring.datasource.username=yourusername
